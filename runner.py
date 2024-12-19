@@ -23,13 +23,14 @@ class Runner:
 class Tournament:
     def __init__(self, distance, *participants):
         self.full_distance = distance
-        self.participants = sorted(list(participants), key=lambda runner: runner.speed, reverse=True)
+        self.participants = list(participants)
 
     def start(self):
         finishers = {}
         place = 1
         while self.participants:
-            for participant in self.participants:
+            participants = sorted(self.participants, key=lambda runner: runner.speed, reverse=True)
+            for participant in participants:
                 participant.run()
                 if participant.distance >= self.full_distance:
                     finishers[place] = participant
